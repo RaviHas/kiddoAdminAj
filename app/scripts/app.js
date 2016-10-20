@@ -14,7 +14,8 @@ angular
     'ngAnimate',
     'ngFileUpload',
     'angularFileUpload',
-    'base64'
+    'firebase',
+    'blockUI'
   ])
   .config(function($stateProvider, $urlRouterProvider) {
 
@@ -42,7 +43,8 @@ angular
           .state('course', {
             url: '/course',
             parent: 'dashboard',
-            templateUrl: 'views/dashboard/overview.html'
+            templateUrl: 'views/dashboard/overview.html',
+            controller: 'courseCtrl'
           })
           .state('quize', {
             url: '/quize',
