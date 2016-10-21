@@ -8,68 +8,42 @@
  * Controller of yapp
  */
 angular.module('yapp')
-  .controller('storybookCtrl', ['$scope', 'FileUploader', '$base64', function($scope, FileUploader) {
-        var uploader = $scope.uploader = new FileUploader({
-            url: 'upload.php'
-        });
+  .controller('storybookCtrl', ['$scope','$firebase','Upload','$timeout','blockUI', function($scope,$firebase,Upload,$timeout,blockUI) {
 
-        // FILTERS
+       
 
-        uploader.filters.push({
-            name: 'imageFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+ /***** Add data to firebase *****/
+    $scope.AddPost = function(files) {
+           var fb = new Firebase("https://kiddo-56f35.firebaseio.com/storybook/");
+
+            var title = $scope.storybook.title;
+            var description  = $scope.storybook.description;
+             blockUI.start();
+
+            Upload.base64DataUrl(files).then(function(base64Urls) {
+            fb.push({
+                title:     title,
+                description:      description,
+                images : base64Urls,
+
+            },function(error) {
+                if (error) {
+                    console.log("Error:",error);
+                    $scope.errMsg=true;
+                    $scope.msg=error.message;
+                } else {
+                $scope.storybook = {};
+                $scope.files = "";
+                blockUI.stop();
+                console.log("Post set successfully!");
+                $scope.errMsg=true;
+                $scope.msg="Data successfully added...";
+                $scope.$apply();
+
             }
+
         });
+      });
+    }
 
-        var files = [];
-
-        $scope.viewAll = function($base64) {
-            angular.forEach(uploader.queue, function(_file){
-                console.log(_file.file);
-                var fil = _file;
-                var imageData=$base64.encode(fil);
-                
-            });
-            console.log(files);
-        };
-
-        // CALLBACKS
-
-        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-            console.info('onWhenAddingFileFailed', item, filter, options);
-        };
-        uploader.onAfterAddingFile = function(fileItem) {
-            console.info('onAfterAddingFile', fileItem);
-        };
-        uploader.onAfterAddingAll = function(addedFileItems) {
-            console.info('onAfterAddingAll', addedFileItems);
-        };
-        uploader.onBeforeUploadItem = function(item) {
-            console.info('onBeforeUploadItem', item);
-        };
-        uploader.onProgressItem = function(fileItem, progress) {
-            console.info('onProgressItem', fileItem, progress);
-        };
-        uploader.onProgressAll = function(progress) {
-            console.info('onProgressAll', progress);
-        };
-        uploader.onSuccessItem = function(fileItem, response, status, headers) {
-            console.info('onSuccessItem', fileItem, response, status, headers);
-        };
-        uploader.onErrorItem = function(fileItem, response, status, headers) {
-            console.info('onErrorItem', fileItem, response, status, headers);
-        };
-        uploader.onCancelItem = function(fileItem, response, status, headers) {
-            console.info('onCancelItem', fileItem, response, status, headers);
-        };
-        uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
-        };
-        uploader.onCompleteAll = function() {
-            console.info('onCompleteAll');
-        };
-
-        console.info('uploader', uploader);
-    }]);
+}]);
