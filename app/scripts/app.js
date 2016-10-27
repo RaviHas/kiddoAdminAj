@@ -67,6 +67,12 @@ angular
             url: '/events',
             parent: 'dashboard',
             templateUrl: 'views/dashboard/events.html'
+          })
+            .state('managecourse', {
+            url: '/managecourse',
+            parent: 'dashboard',
+            templateUrl: 'views/dashboard/managecourse.html',
+            controller: 'managecoursrctrl'
           });
            
 

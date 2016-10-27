@@ -1,6 +1,7 @@
 <div>
-	<a ui-sref="reports" class="pull-right btn btn-primary btn-outline btn-rounded">Home</a>
+	<a ui-sref="managecourse" class="pull-right btn btn-primary btn-outline btn-rounded">Manage Course</a>
 	<h2>Course <small>Add a new course</small></h2>
+	<span class="glyphicon glyphicon-dashboard bg-fade"></span>
 	<div class="jumbotron">
 		<div class="container">
 			   <div class="col-lg-6">
@@ -17,8 +18,8 @@
 	                        <label>Subject</label>
 	                        <select class="form-control" name="subject"  ng-model="course.subject">
 	                            <option>Maths</option>
-	                            <option>Environmental Studies</option>
-	                            <option>English Language</option>
+	                            <option>EnvironmentalStudies</option>
+	                            <option>EnglishLanguage</option>
 	                        </select>
 	                </div>
 	                <fieldset class="form-group">
@@ -33,7 +34,7 @@
 	                    <label >Course material</label>
 	                  	<input class="form-control" name="url"  ng-model="course.url">
 	                </fieldset>
-	                 <button id="singlebutton" class="btn btn-primary" type="submit" value="Publish" ng-disabled="!course.grade || !course.title || !course.subject || !course.description || !course.url ">Submit Button</button>
+	                 <button id="singlebutton" class="btn btn-primary" type="submit" value="Publish" ng-disabled="!course.grade || !course.title || !course.subject || !course.description || !course.url ">Add Course</button>
 	                <button type="reset" class="btn btn-secondary">Reset</button>
 	            </form>
         </div>

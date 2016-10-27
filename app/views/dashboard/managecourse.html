@@ -1,0 +1,107 @@
+
+<div>
+	<a ui-sref="course" class="pull-right btn btn-primary btn-outline btn-rounded">Add Course</a>
+	<h2>Manage Course </h2>
+	<div class="jumbotron">
+		<div class="container">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Grade</th>
+            <th>Subject</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Course Material</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="course in courses">
+            <td>{{course.grade}}</td>
+            <td>{{course.subject}}</td>
+            <td>{{course.title}}</td>
+            <td>{{course.description}}</td>
+            <td>{{course.url}}</td>
+            <td>
+              <button type="submit" style="width: 58px; margin-bottom: 5px" class="btn btn-sm btn-primary" ng-click="editCourse(course.$id)" data-target="#editModal" data-toggle="modal">Edit</button>
+              <button type="submit" class="btn btn-sm btn-danger" ng-click="deleteCourses(course)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+      
+    </div>
+    
+    <div class="container">
+      <div id="editModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div  class="model-header">
+              <h3 style="text-align: center;">Edit Course</h3>
+            </div>
+            <div class="modal-body">
+              <form role="form"  ng-submit="AddCourse()">
+                <div class="form-group">
+                  <label>Grade</label>
+                  <select class="form-control" name="grade" ng-model="editCourseData.grade" >
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                  </select>
+                </div>
+                <div class="form-group"  >
+                  <label>Subject</label>
+                  <select class="form-control" name="subject"  ng-model="editCourseData.subject">
+                    <option>Maths</option>
+                    <option>EnvironmentalStudies</option>
+                    <option>EnglishLanguage</option>
+                  </select>
+                </div>
+                <fieldset class="form-group">
+                  <label>Title</label>
+                  <input class="form-control" name="title"  ng-model="editCourseData.title">
+                </fieldset>
+                <fieldset class="form-group">
+                  <label>Description</label>
+                  <textarea class="form-control" rows="3" name="description"  ng-model="editCourseData.description"></textarea>
+                </fieldset>
+                <fieldset class="form-group">
+                  <label >Course material</label>
+                  <input class="form-control" name="url"  ng-model="editCourseData.url">
+                </fieldset>
+              </form>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-primary" ng-click="updateBook(editCourseData.$id)" ng-disabled="!editCourseData.grade || !editCourseData.title || !editCourseData.subject || !editCourseData.description || !editCourseData.url ">Update</button>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="deleteModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div  class="modal-header">
+              <h5 style="color: red">Delete</h5>
+            </div>
+            <div class="modal-body">
+              <small> Are you sure you want to delete the story book ?</small>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-danger" ng-click="deleteCourses(deleteCourse)">Delete</button>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>

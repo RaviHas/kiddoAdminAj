@@ -14,36 +14,50 @@ angular.module('yapp')
 
  /***** Add data to firebase *****/
     $scope.AddPost = function(files) {
-           var fb = new Firebase("https://kiddo-56f35.firebaseio.com/storybook/");
 
-            var title = $scope.storybook.title;
-            var description  = $scope.storybook.description;
-             blockUI.start();
+            swal({
+                  title: "Do you want to insert this record?",
+                  type: "info",
+                  showCancelButton: true,
+                  confirmButtonClass: "btn-primary",
+                  confirmButtonText: "Yes",
+                  closeOnConfirm: false
+                },
+                function(){
+                   var fb = new Firebase("https://kiddo-56f35.firebaseio.com/storybook/");
 
-            Upload.base64DataUrl(files).then(function(base64Urls) {
-            fb.push({
-                title:     title,
-                description:      description,
-                images : base64Urls,
+                    var title = $scope.storybook.title;
+                    var description  = $scope.storybook.description;
+                     blockUI.start();
 
-            },function(error) {
-                if (error) {
-                    console.log("Error:",error);
-                    $scope.errMsg=true;
-                    $scope.msg=error.message;
-                } else {
-                $scope.storybook = {};
-                $scope.files = "";
-                blockUI.stop();
-                console.log("Post set successfully!");
-                $scope.errMsg=true;
-                $scope.msg="Data successfully added...";
-                $scope.$apply();
+                    Upload.base64DataUrl(files).then(function(base64Urls) {
+                    fb.push({
+                        title:     title,
+                        description:      description,
+                        images : base64Urls,
 
-            }
+                    },function(error) {
+                        if (error) {
+                            console.log("Error:",error);
+                            $scope.errMsg=true;
+                            $scope.msg=error.message;
+                        } else {
+                        $scope.storybook = {};
+                        $scope.files = "";
+                        console.log("Post set successfully!");
+                        $scope.errMsg=true;
+                        $scope.msg="Data successfully added...";
+                        $scope.$apply();
 
-        });
-      });
+                    }
+
+                    });
+                  });
+                    blockUI.stop();
+                  swal("successfully added!", "", "success");
+                  
+                });
+
     }
 
 }]);
