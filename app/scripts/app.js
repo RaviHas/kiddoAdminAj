@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 /**
  * @ngdoc overview
@@ -56,6 +56,12 @@ angular
             parent: 'dashboard',
             templateUrl: 'views/dashboard/storybook.html',
              controller: 'storybookCtrl'
+          })
+            .state('viewstorybook', {
+            url: '/viewstorybook',
+            parent: 'dashboard',
+            templateUrl: 'views/dashboard/viewstorybook.html',
+            controller: 'viewStorybookCtrl'
           })
             .state('events', {
             url: '/events',

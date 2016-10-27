@@ -1,0 +1,83 @@
+<div>
+	<a ui-sref="storybook" class="pull-right btn btn-primary btn-outline btn-rounded">Add Story Book</a>
+	<h2>Story Book </h2>
+	<span class="glyphicon glyphicon-dashboard bg-fade"></span>
+	<div class="jumbotron">
+		<div class="container">
+      <div class="col-lg-6">
+        <div class="row" ng-repeat="book in storybooks">
+          <div class="col-md-12 well well-sm">
+            <h3><B>{{book.title}}</B></h3>
+            <p>{{book.description}}</p>
+            <button type="submit" class="btn btn-sm btn-primary" ng-click="editBook(book.$id)" data-target="#editModal" data-toggle="modal">Edit</button>
+            <button type="submit" class="btn btn-sm btn-danger" ng-click="deleteConf(book)" data-target="#deleteModal" data-toggle="modal">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+        <div id="editModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div  class="model-header">
+                <h3 style="text-align: center;">Edit Story Book</h3>
+              </div>
+              <div class="modal-body">
+                <form role="form" name="StoryBook" id="StoryBook" novalidate="" ng-submit="AddPost(files)" >
+                  <fieldset class="form-group" ng-class="{'has-error' : StoryBook.title.$invalid && StoryBook.title.$touched}">
+                    <label>Title</label>
+                    <input class="form-control" name="title" ng-model="editBookData.title" required="">
+                    <small class="help-block" ng-show="StoryBook.title.$invalid && StoryBook.title.$touched">Please enter the Title</small>
+                  </fieldset>
+                  <fieldset class="form-group" ng-class="{'has-error' : StoryBook.description.$invalid && StoryBook.description.$touched}">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="3" name="description" ng-model="editBookData.description" required=""></textarea>
+                    <small class="help-block" ng-show="StoryBook.description.$invalid && StoryBook.description.$touched">Please enter the Description</small>
+                  </fieldset>     
+                  <fieldset class="form-group" ng-class="{'has-error' : StoryBook.file.$invalid && StoryBook.file.$touched}">
+                    <label for="exampleInputFile">Content</label>
+                    <input type="file" class="form-control-file" id="pictures" ngf-select ng-model="editBookData.images"  name="file" accept="image/*" ngf-max-size="2MB" ngf-multiple="true" ngf-keep="true" ngf-keep-distinct="true" required="" />
+                    <small class="help-block" ng-show="StoryBook.file.$invalid && StoryBook.file.$touched">Please Choose Images</small>
+                  </fieldset>
+                  <fieldset class="form-group">
+                    <div class="col-sm-3" ng-repeat="file in editBookData.images">
+                      <div class="card-block bg-white" style="padding-bottom: 10px;">
+                        <img ngf-thumbnail="!file.$error && file" width="100" height="100" ng-click="file = null" ng-show="file" >
+                      </div>
+                    </div>
+                  </fieldset>  
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" ng-click="updateBook(editBookData.$id)">Update</button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="container">
+      <div id="deleteModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div  class="modal-header">
+              <h5 style="color: red">Delete</h5>
+            </div>
+            <div class="modal-body">
+              <small> Are you sure you want to delete the story book ?</small>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-danger" ng-click="deleteStoryBook(deleteBook)">Delete</button>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
