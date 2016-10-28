@@ -1,5 +1,5 @@
 <div>
-	<a ui-sref="genquiz" class="pull-right btn btn-primary btn-lg btn-outline btn-rounded">Genarate Quiz</a>
+	<a ui-sref="quiz" class="pull-right btn btn-primary btn-lg btn-outline btn-rounded">Genarate Quiz</a>
 	<h2>View Questions </h2>
 	<span class="glyphicon glyphicon-dashboard bg-fade"></span>
 	<div class="jumbotron">
@@ -7,7 +7,9 @@
       <div class="row">
           <div class="col-lg-12">
             <div class="panel panel-default">
-              <div class="panel-heading">Questions</div>
+              <div class="panel-heading">Questions
+                <a ui-sref="question" class="pull-right btn btn-primary btn-sm btn-outline btn-rounded">Add Questions</a>
+              </div>
               <div class="panel-body">
                   <div class="table-responsive">
                       <table class="table table-striped table-bordered table-hover">
@@ -29,7 +31,7 @@
                             <td ng-if="question.type == 'Image Question'"><img src="{{question.question[0]}}" alt="" height="42" width="100"></td>
                             <td>
                               <button type="submit" class="btn btn-sm btn-primary" ng-click="editQuestion(question.$id)" data-target="#editModal" data-toggle="modal">Edit</button>
-                              <button type="submit" class="btn btn-sm btn-danger" ng-click="deleteConf(question)" data-target="#deleteModal" data-toggle="modal">Delete</button>
+                              <button type="submit" class="btn btn-sm btn-danger" ng-click="deleteQuestion(question)">Delete</button>
                             </td>
                           </tr>
                         </tbody>
@@ -41,7 +43,100 @@
           </div>
     </div>
 
+     <div class="container">
+        <div id="editModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div  class="model-header">
 
+                <h3 style="text-align: center;">Edit Question</h3>
+              </div>
+              <div class="modal-body">
+               <form role="form">
+                    <fieldset class="form-group">
+                        <label>Grade</label>
+                        <select class="form-control" name="grade" ng-model="editQuestionData.grade" ng-change="filter1()">
+                            <option ng-option value="">Select One</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </fieldset>
+                    <fieldset class="form-group"  >
+                        <label>Subject</label>
+                        <select class="form-control" name="subject"  ng-model="editQuestionData.subject" ng-change="filter2()">
+                            <option ng-option value="">Select One</option>
+                            <option>Maths</option>
+                            <option>Environmental Studies</option>
+                            <option>English Language</option>
+                        </select>    
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Title</label>
+                        <select class="form-control" name="title"  ng-model="editQuestionData.title">
+                            <option ng-option value="">Select One</option>
+                            <option ng-repeat="t in titles">{{t}}</option>
+                        </select>    
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Question Type</label>
+                        <select class="form-control" name="questionType"  ng-model="editQuestionData.type">
+                            <option ng-option value="">Select One</option>
+                            <option ng-option value="Text Question">Text Question</option>
+                            <option ng-option value="Image Question">Image Question</option>
+                        </select>
+                    </fieldset>
+                    <fieldset class="form-group" ng-if="editQuestionData.type == 'Text Question'">
+                        <label>Question</label>
+                        <textarea class="form-control" rows="3" name="question" ng-model="editQuestionData.question"></textarea>
+                    </fieldset>
+                    <fieldset class="form-group" ng-if="editQuestionData.type == 'Image Question'">
+                        <label for="exampleInputFile">Question</label>
+                        <div class="panel panel-info">
+                            <div class="panel-heading"> 
+                             <input type="file" name='file' id ='file' class="form-control-file"  ngf-select ng-model="$parent.files"   accept="image/*" ngf-max-size="2MB" ngf-keep="true" ngf-keep-distinct="true" onchange="document.getElementById('img').src = window.URL.createObjectURL(this.files[0])"></div>
+                                <div class="panel-body">
+                                    <img id="img" alt="Image" width="350" height="200" src="{{editQuestionData.question[0]}}"/>   
+                                 </div>
+                            <div class="panel-footer"></div>
+                          </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Answer 1</label>
+                        <input class="form-control" name="answer1" ng-model="editQuestionData.answer1"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Answer 2</label>                            
+                        <input class="form-control" name="answer2" ng-model="editQuestionData.answer2"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Answer 3</label>
+                        <input class="form-control" name="answer3" ng-model="editQuestionData.answer3"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Answer 4</label>
+                        <input class="form-control" name="answer4" ng-model="editQuestionData.answer4"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Correct Answer</label>
+                        <select class="form-control" name="canswer" ng-model="editQuestionData.canswer">
+                            <option ng-option value="">Select One</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </fieldset>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" ng-click="updateQuestion(editQuestionData.$id)">Update</button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
 
   </div>
 </div>

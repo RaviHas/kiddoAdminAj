@@ -1,0 +1,48 @@
+<div>
+    <a ui-sref="question" class="pull-right btn btn-primary btn-lg btn-outline btn-rounded">Add Question</a>
+    <h2>Questions<small> Add a new question</small></h2>
+    <span class="glyphicon glyphicon-dashboard bg-fade"></span>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="col-lg-6">
+                <form role="form"  ng-submit="AddQuiz()">
+                    <fieldset class="form-group">
+                        <label>Grade</label>
+                        <select class="form-control" name="grade" ng-model="quiz.grade" ng-change="filter1()">
+                            <option ng-option value="">Select One</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </fieldset>
+                    <fieldset class="form-group"  >
+                        <label>Subject</label>
+                        <select class="form-control" name="subject"  ng-model="quiz.subject" ng-change="filter2()">
+                            <option ng-option value="">Select One</option>
+                            <option>Maths</option>
+                            <option>Environmental Studies</option>
+                            <option>English Language</option>
+                        </select>    
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Title</label>
+                        <select class="form-control" name="title"  ng-model="quiz.title">
+                            <option ng-option value="">Select One</option>
+                            <option ng-repeat="t in titles">{{t}}</option>
+                        </select>    
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Number of Questions</label>
+                        <input type="number" class="form-control" name="noOfQuestion" ng-model="quiz.noOfQuestion" min="5">
+                    </fieldset>
+                    
+                    <button id="singlebutton" class="btn btn-primary" type="submit" value="Publish" ><span class="glyphicon glyphicon-book"></span> Add Quiz </button>
+                    <button ng-click="file = null" type="reset"  class="btn btn-secondary"><span class="glyphicon glyphicon-ban-circle"></span> Reset</button>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <a ui-sref="viewquiz" class="pull-right btn btn-primary btn-outline btn-rounded">View Quiz</a>
+            </div>
+        </div>
+    </div>
+</div>

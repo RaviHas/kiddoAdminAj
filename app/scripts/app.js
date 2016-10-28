@@ -58,6 +58,18 @@ angular
             templateUrl: 'views/dashboard/viewquestion.html',
             controller: 'viewquestionCtrl'
           })
+          .state('quiz', {
+            url: '/quiz',
+            parent: 'dashboard',
+            templateUrl: 'views/dashboard/quiz.html',
+            controller: 'quizCtrl'
+          })
+          .state('viewquiz', {
+            url: '/viewquiz',
+            parent: 'dashboard',
+            templateUrl: 'views/dashboard/viewquiz.html',
+            controller: 'viewquizCtrl'
+          })
             .state('storybook', {
             url: '/storybook',
             parent: 'dashboard',
