@@ -28,7 +28,7 @@
                             <td>{{question.subject}}</td>
                             <td>{{question.title}}</td>
                             <td ng-if="question.type == 'Text Question'">{{question.question}}</td>
-                            <td ng-if="question.type == 'Image Question'"><img src="{{question.question[0]}}" alt="" height="42" width="100"></td>
+                            <td ng-if="question.type == 'Image Question'"><img src="{{question.question}}" alt="" height="42" width="100"></td>
                             <td>
                               <button type="submit" class="btn btn-sm btn-primary" ng-click="editQuestion(question.$id)" data-target="#editModal" data-toggle="modal">Edit</button>
                               <button type="submit" class="btn btn-sm btn-danger" ng-click="deleteQuestion(question)">Delete</button>
@@ -96,7 +96,7 @@
                             <div class="panel-heading"> 
                              <input type="file" name='file' id ='file' class="form-control-file"  ngf-select ng-model="$parent.files"   accept="image/*" ngf-max-size="2MB" ngf-keep="true" ngf-keep-distinct="true" onchange="document.getElementById('img').src = window.URL.createObjectURL(this.files[0])"></div>
                                 <div class="panel-body">
-                                    <img id="img" alt="Image" width="350" height="200" src="{{editQuestionData.question[0]}}"/>   
+                                    <img id="img" alt="Image" width="350" height="200" src="{{editQuestionData.question}}"/>   
                                  </div>
                             <div class="panel-footer"></div>
                           </div>

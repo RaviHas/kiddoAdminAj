@@ -69,19 +69,25 @@ angular.module('yapp')
  			var ref = new Firebase('https://kiddo-56f35.firebaseio.com/question/' + id);
  			var i;
  			var question;
+      var file;
+      console.log('parent------>',$scope.files);
 
 			if($scope.editQuestionData.type =="Text Question"){
   	    		question = $scope.editQuestionData.question;
   	    	}
   	    	else{
- 					if(typeof $scope.editQuestionData.question[0] != "string"){
- 						Upload.base64DataUrl($scope.editQuestionData.question[0]).then(function(base64Urls) {
- 							question=base64Urls;
+ 					if(typeof $scope.files == "object"){
+ 						Upload.base64DataUrl($scope.files).then(function(base64Urls) {
+ 							file=base64Urls;
+             question = file[0];
+              console.log('file------->',file);
+              console.log('question------>',question);
 
  						});
  					}	
  					else{
- 						question=$scope.editQuestionData.question[0];
+ 						question=$scope.editQuestionData.question;
+            console.log('questionelse------>',question);
  					}
   			}
 
@@ -105,6 +111,7 @@ angular.module('yapp')
  					} else {
  						$("#editModal").modal('hide');
  						swal("successfully Updated!", "", "success");
+            $scope.files = "";
  					}
 
  				});

@@ -11,8 +11,9 @@ angular.module('yapp')
   .controller('questionCtrl', ['$scope','$firebase','$firebaseArray','Upload','$timeout','blockUI', function($scope,$firebase,$firebaseArray,Upload,$timeout,blockUI) {
   	var ref = new Firebase("https://kiddo-56f35.firebaseio.com/course/");
   	var sync = $firebaseArray(ref);
-  	console.log(sync);
+  	console.log(sync.length);
   	$scope.titles = [];
+
 
   	$scope.filter1 = function(){
   		$scope.question.subject="";
@@ -44,6 +45,7 @@ angular.module('yapp')
 
   	$scope.AddQuestion = function(files){
   		var question;
+      var file;
   
 		var fb = new Firebase("https://kiddo-56f35.firebaseio.com/question/");
 
@@ -52,7 +54,8 @@ angular.module('yapp')
   	    }
   	    else{
   	    	Upload.base64DataUrl(files).then(function(base64Urls) {
- 				question = base64Urls;
+ 				     file = base64Urls;
+             question = file[0];
         	});
   		}
 
