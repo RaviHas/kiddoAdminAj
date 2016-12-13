@@ -38,7 +38,7 @@
 	                </fieldset>
 	                <fieldset class="form-group" ng-class="{'has-error' : Course.url.$invalid && Course.url.$touched}">
 	                    <label >Course material</label>
-	                  	<input class="form-control" name="url"  ng-model="course.url" ng-pattern="{{regex}}" required="">
+	                  	<input class="form-control" name="url"  ng-model="course.url" required="">
 	                  	 <small class="help-block" ng-show="Course.url.$invalid && Course.url.$touched">Please enter a url</small>
 	                </fieldset>
 
