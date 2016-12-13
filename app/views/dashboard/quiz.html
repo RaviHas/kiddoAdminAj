@@ -5,38 +5,42 @@
     <div class="jumbotron">
         <div class="container">
             <div class="col-lg-6">
-                <form role="form"  ng-submit="AddQuiz()">
-                    <fieldset class="form-group">
+                <form role="form" name="Quiz" id="Quiz" novalidate="" ng-submit="AddQuiz()">
+                    <fieldset class="form-group" ng-class="{'has-error' : Quiz.grade.$invalid && Quiz.grade.$touched}">
                         <label>Grade</label>
-                        <select class="form-control" name="grade" ng-model="quiz.grade" ng-change="filter1()">
+                        <select class="form-control" name="grade" ng-model="quiz.grade" ng-change="filter1()" required="">
                             <option ng-option value="">Select One</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
                         </select>
+                        <small class="help-block" ng-show="Quiz.grade.$invalid && Quiz.grade.$touched">Please choose a grade</small>
                     </fieldset>
-                    <fieldset class="form-group"  >
+                    <fieldset class="form-group" ng-class="{'has-error' : Quiz.subject.$invalid && Quiz.subject.$touched}">
                         <label>Subject</label>
-                        <select class="form-control" name="subject"  ng-model="quiz.subject" ng-change="filter2()">
+                        <select class="form-control" name="subject"  ng-model="quiz.subject" ng-change="filter2()" required="">
                             <option ng-option value="">Select One</option>
                             <option>Maths</option>
                             <option>Environmental Studies</option>
                             <option>English Language</option>
-                        </select>    
+                        </select> 
+                        <small class="help-block" ng-show="Quiz.subject.$invalid && Quiz.subject.$touched">Please choose a subject</small>
                     </fieldset>
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" ng-class="{'has-error' : Quiz.title.$invalid && Quiz.title.$touched}">
                         <label>Title</label>
-                        <select class="form-control" name="title"  ng-model="quiz.title">
+                        <select class="form-control" name="title"  ng-model="quiz.title" required="">
                             <option ng-option value="">Select One</option>
                             <option ng-repeat="t in titles">{{t}}</option>
-                        </select>    
+                        </select> 
+                        <small class="help-block" ng-show="Quiz.title.$invalid && Quiz.title.$touched">Please choose a title</small>   
                     </fieldset>
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" ng-class="{'has-error' : Quiz.noOfQuestion.$invalid && Quiz.noOfQuestion.$touched}">
                         <label>Number of Questions</label>
-                        <input type="number" class="form-control" name="noOfQuestion" ng-model="quiz.noOfQuestion" min="5">
+                        <input type="number" class="form-control" name="noOfQuestion" ng-model="quiz.noOfQuestion" min="5" required="">
+                        <small class="help-block" ng-show="Quiz.noOfQuestion.$invalid && Quiz.noOfQuestion.$touched">Please enter a no of questions</small>
                     </fieldset>
                     
-                    <button id="singlebutton" class="btn btn-primary" type="submit" value="Publish" ><span class="glyphicon glyphicon-book"></span> Add Quiz </button>
+                    <button id="singlebutton" class="btn btn-primary" type="submit" value="Publish" ng-disabled="Quiz.$invalid"><span class="glyphicon glyphicon-book"></span> Add Quiz </button>
                     <button ng-click="file = null" type="reset"  class="btn btn-secondary"><span class="glyphicon glyphicon-ban-circle"></span> Reset</button>
                 </form>
             </div>

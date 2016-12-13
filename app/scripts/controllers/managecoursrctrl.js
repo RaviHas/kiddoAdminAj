@@ -10,6 +10,7 @@
  angular.module('yapp')
  .controller('managecoursrctrl', ['$scope','$firebase', '$firebaseArray', '$firebaseObject', 'Upload', 'blockUI', function($scope,$firebase,$firebaseArray,$firebaseObject,Upload,blockUI) {
 
+ 	$scope.regex = '^((https?|ftp)://)?([A-Za-z]+\\.)?[A-Za-z0-9-]+(\\.[a-zA-Z]{1,4}){1,2}(/.*\\?.*)?$';
  	blockUI.start();
  	var ref = new Firebase('https://kiddo-56f35.firebaseio.com/course');
  	var sync = $firebaseArray(ref);

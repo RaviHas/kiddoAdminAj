@@ -5,49 +5,54 @@
     <div class="jumbotron">
         <div class="container">
             <div class="col-lg-6">
-                <form role="form"  ng-submit="AddQuestion(files)">
-                    <fieldset class="form-group">
+                <form role="form" name="Question" id="Question" novalidate="" ng-submit="AddQuestion(files)">
+                    <fieldset class="form-group" ng-class="{'has-error' : Question.grade.$invalid && Question.grade.$touched}">
                         <label>Grade</label>
-                        <select class="form-control" name="grade" ng-model="question.grade" ng-change="filter1()">
+                        <select class="form-control" name="grade" ng-model="question.grade" ng-change="filter1()" required="">
                             <option ng-option value="">Select One</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
                         </select>
+                     <small class="help-block" ng-show="Question.grade.$invalid && Question.grade.$touched">Please choose a grade</small>
                     </fieldset>
-                    <fieldset class="form-group"  >
+                    <fieldset class="form-group" ng-class="{'has-error' : Question.subject.$invalid && Question.subject.$touched}" >
                         <label>Subject</label>
-                        <select class="form-control" name="subject"  ng-model="question.subject" ng-change="filter2()">
+                        <select class="form-control" name="subject"  ng-model="question.subject" ng-change="filter2()" required="">
                             <option ng-option value="">Select One</option>
                             <option>Maths</option>
                             <option>Environmental Studies</option>
                             <option>English Language</option>
-                        </select>    
+                        </select>
+                    <small class="help-block" ng-show="Question.subject.$invalid && Question.subject.$touched">Please choose a subject</small>
                     </fieldset>
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" ng-class="{'has-error' : Question.title.$invalid && Question.title.$touched}" >
                         <label>Title</label>
-                        <select class="form-control" name="title"  ng-model="question.title">
+                        <select class="form-control" name="title"  ng-model="question.title" required="">
                             <option ng-option value="">Select One</option>
                             <option ng-repeat="t in titles">{{t}}</option>
-                        </select>    
+                        </select>
+                    <small class="help-block" ng-show="Question.title.$invalid && Question.title.$touched">Please choose a title</small>
                     </fieldset>
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" ng-class="{'has-error' : Question.questionType.$invalid && Question.questionType.$touched}">
                         <label>Question Type</label>
-                        <select class="form-control" name="questionType"  ng-model="question.questionType">
+                        <select class="form-control" name="questionType"  ng-model="question.questionType" required="">
                             <option ng-option value="">Select One</option>
                             <option ng-option value="Text Question">Text Question</option>
                             <option ng-option value="Image Question">Image Question</option>
                         </select>
+                    <small class="help-block" ng-show="Question.questionType.$invalid && Question.questionType.$touched">Please choose a question type</small>
                     </fieldset>
-                    <fieldset class="form-group" ng-if="question.questionType == 'Text Question'">
+                    <fieldset class="form-group" ng-if="question.questionType == 'Text Question'" ng-class="{'has-error' : Question.question.$invalid && Question.question.$touched}">
                         <label>Question</label>
-                        <textarea class="form-control" rows="3" name="question" ng-model="question.question"></textarea>
+                        <textarea class="form-control" rows="3" name="question" ng-model="question.question" ng-minlength="10" required=""></textarea>
+                     <small class="help-block" ng-show="Question.question.$error.minlength && Question.question.$touched">Please enter a valid Question - Question should have more than 10 characters</small>
                     </fieldset>
-                    <fieldset class="form-group" ng-if="question.questionType == 'Image Question'">
+                    <fieldset class="form-group" ng-if="question.questionType == 'Image Question'" ng-class="{'has-error' : Question.file.$invalid && Question.file.$touched}">
                         <label for="exampleInputFile">Question</label>
                         <div class="panel panel-info">
                             <div class="panel-heading"> 
-                            <input type="file" name='file' id ='file' class="form-control-file"  ngf-select ng-model="$parent.files"   accept="image/*" ngf-max-size="2MB" ngf-keep="true" ngf-keep-distinct="true" onchange="document.getElementById('img').src = window.URL.createObjectURL(this.files[0])"></div>
+                            <input type="file" name='file' id ='file' class="form-control-file"  ngf-select ng-model="$parent.files"   accept="image/*" ngf-max-size="2MB" ngf-keep="true" ngf-keep-distinct="true" onchange="document.getElementById('img').src = window.URL.createObjectURL(this.files[0])" required=""></div>
                                 <div class="panel-body">
                                    
                                     <img id="img" alt="Image" width="350" height="200" />   
@@ -55,35 +60,41 @@
                                  </div>
                                  <div class="panel-footer"></div>
                             </div>
+                     <small class="help-block" ng-show="Question.file.$invalid && Question.file.$touched">Please Choose Image</small>
                     </fieldset>
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" ng-class="{'has-error' : Question.answer1.$invalid && Question.answer1.$touched}">
                         <label>Answer 1</label>
-                        <input class="form-control" name="answer1" ng-model="question.answer1"/>
+                        <input class="form-control" name="answer1" ng-model="question.answer1" required=""/>
+                        <small class="help-block" ng-show="Question.answer1.$invalid && Question.answer1.$touched">Please enter a answer1</small>
                     </fieldset>
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" ng-class="{'has-error' : Question.answer2.$invalid && Question.answer2.$touched}">
                         <label>Answer 2</label>                            
-                        <input class="form-control" name="answer2" ng-model="question.answer2"/>
+                        <input class="form-control" name="answer2" ng-model="question.answer2" required=""/>
+                        <small class="help-block" ng-show="Question.answer2.$invalid && Question.answer2.$touched">Please enter a answer2</small>
                     </fieldset>
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" ng-class="{'has-error' : Question.answer3.$invalid && Question.answer3.$touched}">
                         <label>Answer 3</label>
-                        <input class="form-control" name="answer3" ng-model="question.answer3"/>
+                        <input class="form-control" name="answer3" ng-model="question.answer3" required=""/>
+                        <small class="help-block" ng-show="Question.answer3.$invalid && Question.answer3.$touched">Please enter a answer3</small>
                     </fieldset>
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" ng-class="{'has-error' : Question.answer4.$invalid && Question.answer4.$touched}">
                         <label>Answer 4</label>
-                        <input class="form-control" name="answer4" ng-model="question.answer4"/>
+                        <input class="form-control" name="answer4" ng-model="question.answer4" required=""/>
+                        <small class="help-block" ng-show="Question.answer4.$invalid && Question.answer4.$touched">Please enter a answer4</small>
                     </fieldset>
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" ng-class="{'has-error' : Question.canswer.$invalid && Question.canswer.$touched}">
                         <label>Correct Answer</label>
-                        <select class="form-control" name="canswer" ng-model="question.canswer">
+                        <select class="form-control" name="canswer" ng-model="question.canswer" required="">
                             <option ng-option value="">Select One</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
                         </select>
+                        <small class="help-block" ng-show="Question.canswer.$invalid && Question.canswer.$touched">Please choose a correct answer</small>
                     </fieldset>
                     
-                    <button id="singlebutton" class="btn btn-primary" type="submit" value="Publish" ><span class="glyphicon glyphicon-book"></span> Add Question </button>
+                    <button id="singlebutton" class="btn btn-primary" type="submit" value="Publish" ng-disabled="Question.$invalid"><span class="glyphicon glyphicon-book"></span> Add Question </button>
                     <button ng-click="file = null" type="reset"  class="btn btn-secondary"><span class="glyphicon glyphicon-ban-circle"></span> Reset</button>
                 </form>
             </div>

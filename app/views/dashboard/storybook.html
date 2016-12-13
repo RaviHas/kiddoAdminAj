@@ -6,18 +6,18 @@
 		<div class="container">
       <div class="col-lg-6">
 
-        <form role="form" name="StoryBook" id="StoryBook" novalidate="" ng-submit="AddPost(files)" >
+        <form role="form" name="StoryBook" id="StoryBook" novalidate="" ng-submit="AddPost(files)">
 
           <fieldset class="form-group" ng-class="{'has-error' : StoryBook.title.$invalid && StoryBook.title.$touched}">
             <label>Title</label>
-            <input class="form-control" name="title" ng-model="storybook.title" required="">
-            <small class="help-block" ng-show="StoryBook.title.$invalid && StoryBook.title.$touched">Please enter the Title</small>
+            <input class="form-control" name="title" ng-model="storybook.title"  required="">
+            <small class="help-block" ng-show="StoryBook.title.$invalid && StoryBook.title.$touched">Please enter a Title</small>
           </fieldset>
 
           <fieldset class="form-group" ng-class="{'has-error' : StoryBook.description.$invalid && StoryBook.description.$touched}">
             <label>Description</label>
-            <textarea class="form-control" rows="3" name="description" ng-model="storybook.description" required=""></textarea>
-            <small class="help-block" ng-show="StoryBook.description.$invalid && StoryBook.description.$touched">Please enter the Description</small>
+            <textarea class="form-control" rows="3" name="description" ng-model="storybook.description" ng-minlength="20" required=""></textarea>
+            <small class="help-block" ng-show="StoryBook.description.$error.minlength && StoryBook.description.$touched">Please enter a valid Description - Description should have more than 20 characters</small>
           </fieldset>     
 
           <fieldset class="form-group" ng-class="{'has-error' : StoryBook.file.$invalid && StoryBook.file.$touched}">
@@ -34,7 +34,7 @@
             </div>
           </fieldset>
 
-          <p ng-show="errMsg">{{msg}}</p>
+         
           <button id="singlebutton" class="btn btn-primary" type="submit" value="Publish" ng-disabled="StoryBook.$invalid"><span class="glyphicon glyphicon-book"></span> Create </button>
           <button ng-click="file = null" type="reset"  class="btn btn-secondary"><span class="glyphicon glyphicon-ban-circle"></span> Reset</button>  
 

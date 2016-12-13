@@ -32,8 +32,8 @@
                   </fieldset>
                   <fieldset class="form-group" ng-class="{'has-error' : StoryBook.description.$invalid && StoryBook.description.$touched}">
                     <label>Description</label>
-                    <textarea class="form-control" rows="3" name="description" ng-model="editBookData.description" required=""></textarea>
-                    <small class="help-block" ng-show="StoryBook.description.$invalid && StoryBook.description.$touched">Please enter the Description</small>
+                    <textarea class="form-control" rows="3" name="description" ng-model="editBookData.description" ng-minlength="20"  required=""></textarea>
+                    <small class="help-block" ng-show="StoryBook.description.$error.minlength && StoryBook.description.$touched">Please enter a valid Description - Description should have more than 20 characters</small>
                   </fieldset>     
                   <fieldset class="form-group" ng-class="{'has-error' : StoryBook.file.$invalid && StoryBook.file.$touched}">
                     <label for="exampleInputFile">Content</label>
@@ -50,8 +50,8 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-primary" ng-click="updateBook(editBookData.$id)">Update</button>
-                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-primary" ng-click="updateBook(editBookData.$id)" ng-disabled="StoryBook.$invalid">Update</button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button> 
               </div>
             </div>
           </div>

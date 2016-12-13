@@ -8,7 +8,7 @@
  * Controller of yapp
  */
 angular.module('yapp')
-  .controller('questionCtrl', ['$scope','$firebase','$firebaseArray','Upload','$timeout','blockUI', function($scope,$firebase,$firebaseArray,Upload,$timeout,blockUI) {
+  .controller('questionCtrl', ['$scope','$firebase','$firebaseArray','Upload','$timeout','blockUI','$window', function($scope,$firebase,$firebaseArray,Upload,$timeout,blockUI,$window) {
   	var ref = new Firebase("https://kiddo-56f35.firebaseio.com/course/");
   	var sync = $firebaseArray(ref);
   	console.log(sync.length);
@@ -43,25 +43,33 @@ angular.module('yapp')
 
   	};
 
+
   	$scope.AddQuestion = function(files){
   		var question;
       var file;
   
-		var fb = new Firebase("https://kiddo-56f35.firebaseio.com/question/");
+      swal({
+            title: "Do you want to insert this record?",
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        },function(){
+		      var fb = new Firebase("https://kiddo-56f35.firebaseio.com/question/");
 
-  		if($scope.question.questionType =="Text Question"){
-  	    	question = $scope.question.question;
-  	    }
+  		    if($scope.question.questionType =="Text Question"){
+  	    	  question = $scope.question.question;
+  	     }
   	    else{
   	    	Upload.base64DataUrl(files).then(function(base64Urls) {
  				     file = base64Urls;
              question = file[0];
         	});
-  		}
+  		  }
 
 
   		   setTimeout(function(){
-			fb.push({
+			     fb.push({
 	            grade: $scope.question.grade,
 	            subject: $scope.question.subject,
 	            title : $scope.question.title,
@@ -79,15 +87,19 @@ angular.module('yapp')
 	                } else {
 	                	$scope.question = {};
 	                	$scope.files = "";
-						console.log("Post set successfully!");
+						        console.log("Post set successfully!");
+                    swal("successfully added!", "", "success");
+                    $window.location.reload();
 	                }
 
 	         });
-			$scope.question = {};
-		}, 500);
+			     $scope.question = {};
+		  }, 500);
            
   
-  	};
+  	});
+
+}
 
 
 }]);

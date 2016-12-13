@@ -8,12 +8,12 @@
  * Controller of yapp
  */
  angular.module('yapp')
- .controller('courseCtrl', ['$scope','$firebase','blockUI', function($scope,$firebase,blockUI) {
+ .controller('courseCtrl', ['$scope','$firebase','blockUI','$window','$timeout', function($scope,$firebase,blockUI,$window,$timeout) {
 
      
 
    /***** Add data to firebase *****/
-
+   $scope.regex = '^((https?|ftp)://)?([A-Za-z]+\\.)?[A-Za-z0-9-]+(\\.[a-zA-Z]{1,4}){1,2}(/.*\\?.*)?$';
 
    $scope.AddCourse = function() {
 
@@ -34,7 +34,7 @@
     var description  = $scope.course.description;
     var url  = $scope.course.url;
 
-    blockUI.start();
+    setTimeout(function(){
     fb.push({
         grade   : grade,
         subject : subject,
@@ -50,14 +50,18 @@
             blockUI.stop();
             console.log("Post set successfully!");
             $scope.$apply();
+            
+            swal("successfully added!", "", "success");
+            $window.location.reload();
 
         }
-
+          
     });
     
-    swal("successfully added!", "", "success");
-});
-}
+  }, 150);
 
+});
+
+}
 
 }]);

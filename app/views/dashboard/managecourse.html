@@ -41,40 +41,47 @@
               <h3 style="text-align: center;">Edit Course</h3>
             </div>
             <div class="modal-body">
-              <form role="form"  ng-submit="AddCourse()">
-                <div class="form-group">
+              <form role="form" name="Course" id="Course" novalidate="" ng-submit="AddCourse()">
+                <fieldset class="form-group" ng-class="{'has-error' : Course.grade.$invalid && Course.grade.$touched}">
                   <label>Grade</label>
-                  <select class="form-control" name="grade" ng-model="editCourseData.grade" >
+                  <select class="form-control" name="grade" ng-model="editCourseData.grade" required="">
+                    <option ng-option value="">Select One</option>
                     <option>2</option>
                     <option>3</option>
                     <option>4</option>
                   </select>
-                </div>
-                <div class="form-group"  >
+                  <small class="help-block" ng-show="Course.grade.$invalid && Course.grade.$touched">Please choose a grade</small>
+                </fieldset>
+                <fieldset class="form-group"  ng-class="{'has-error' : Course.subject.$invalid && Course.subject.$touched}">
                   <label>Subject</label>
-                  <select class="form-control" name="subject"  ng-model="editCourseData.subject">
+                  <select class="form-control" name="subject"  ng-model="editCourseData.subject" required="">
+                    <option ng-option value="">Select One</option>
                     <option>Maths</option>
                     <option>EnvironmentalStudies</option>
                     <option>EnglishLanguage</option>
                   </select>
-                </div>
-                <fieldset class="form-group">
+                  <small class="help-block" ng-show="Course.subject.$invalid && Course.subject.$touched">Please choose a subject</small>
+                </fieldset>
+                <fieldset class="form-group" ng-class="{'has-error' : Course.title.$invalid && Course.title.$touched}">
                   <label>Title</label>
-                  <input class="form-control" name="title"  ng-model="editCourseData.title">
+                  <input class="form-control" name="title"  ng-model="editCourseData.title" required="">
+                  <small class="help-block" ng-show="Course.title.$invalid && Course.title.$touched">Please enter a title</small>
                 </fieldset>
-                <fieldset class="form-group">
+                <fieldset class="form-group" ng-class="{'has-error' : Course.description.$invalid && Course.description.$touched}">
                   <label>Description</label>
-                  <textarea class="form-control" rows="3" name="description"  ng-model="editCourseData.description"></textarea>
+                  <textarea class="form-control" rows="3" name="description"  ng-model="editCourseData.description" ng-minlength="20" required=""></textarea>
+                  <small class="help-block" ng-show="Course.description.$error.minlength && Course.description.$touched">Please enter a valid Description - Description should have more than 20 characters</small>
                 </fieldset>
-                <fieldset class="form-group">
+                <fieldset class="form-group" ng-class="{'has-error' : Course.url.$invalid && Course.url.$touched}">
                   <label >Course material</label>
-                  <input class="form-control" name="url"  ng-model="editCourseData.url">
+                  <input class="form-control" name="url"  ng-model="editCourseData.url" ng-pattern="{{regex}}" required="">
+                  <small class="help-block" ng-show="Course.url.$invalid && Course.url.$touched">Please enter a url</small>
                 </fieldset>
               </form>
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-primary" ng-click="updateBook(editCourseData.$id)" ng-disabled="!editCourseData.grade || !editCourseData.title || !editCourseData.subject || !editCourseData.description || !editCourseData.url ">Update</button>
+              <button type="button" class="btn btn-sm btn-primary" ng-click="updateBook(editCourseData.$id)" ng-disabled="Course.$invalid">Update</button>
               <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
             </div>
           </div>
